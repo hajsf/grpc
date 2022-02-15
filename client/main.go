@@ -1,4 +1,4 @@
-package clent
+package client
 
 import (
 	"log"
