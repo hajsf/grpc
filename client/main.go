@@ -1,27 +1,16 @@
 package main
 
 import (
-	"context"
-	"fmt"
 	"log"
 
-	"github.com/hajsf/grpc/hellopb"
-	"google.golang.org/grpc"
+	chat "github.com/hajsf/grpc/chat"
+	"golang.org/x/net/context"
 )
 
-func main() {
-	fmt.Println("Hello client ...")
+type Server struct {
+}
 
-	opts := grpc.WithInsecure()
-	cc, err := grpc.Dial("localhost:50051", opts)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cc.Close()
-
-	client := hellopb.NewHelloServiceClient(cc)
-	request := &hellopb.HelloRequest{Name: "Jeremy"}
-
-	resp, _ := client.Hello(context.Background(), request)
-	fmt.Printf("Receive response => [%v]", resp.Greeting)
+func (s *Server) SayHello(ctx context.Context, in *chat.MessageRequest) (*chat.MessageResponse, error) {
+	log.Printf("Receive message body from client: %s", in.Body)
+	return &chat.MessageResponse{Body: "Hello From the Server!"}, nil
 }
