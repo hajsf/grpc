@@ -1,4 +1,4 @@
-module github.io/hajsf/grpc/hellopb
+module github.com/hajsf/grpc/hellopb
 
 go 1.18
 
