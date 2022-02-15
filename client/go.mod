@@ -1,4 +1,4 @@
-module github.io/hajsf/grpc/server
+module github.io/hajsf/grpc/client
 
 go 1.18
 
