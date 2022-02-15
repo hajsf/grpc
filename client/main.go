@@ -1,16 +1,29 @@
-package client
+package main
 
 import (
 	"log"
 
-	chat "github.com/hajsf/grpc/chat"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+
+	"github.com/hajsf/grpc/chat"
 )
 
-type Server struct {
-}
+func main() {
 
-func (s *Server) SayHello(ctx context.Context, in *chat.MessageRequest) (*chat.MessageResponse, error) {
-	log.Printf("Receive message body from client: %s", in.Body)
-	return &chat.MessageResponse{Body: "Hello From the Server!"}, nil
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %s", err)
+	}
+	defer conn.Close()
+
+	c := chat.NewChatServiceClient(conn)
+
+	response, err := c.SayHello(context.Background(), &chat.Message{Body: "Hello From Client!"})
+	if err != nil {
+		log.Fatalf("Error when calling SayHello: %s", err)
+	}
+	log.Printf("Response from server: %s", response.Body)
+
 }
