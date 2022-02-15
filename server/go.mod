@@ -3,7 +3,7 @@ module github.com/hajsf/grpc/server
 go 1.18
 
 require (
-	github.com/hajsf/grpc/hellopb v0.0.0-20220215124003-13416baa5320
+	github.com/hajsf/grpc/chat v0.0.0-20220215130056-08d6c55e0a09
 	google.golang.org/grpc v1.27.0
 )
 
