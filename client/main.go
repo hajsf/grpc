@@ -18,9 +18,9 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := chat.NewChatServiceClient(conn)
+	c := chat.NewChatServiceClient(conn) // Why not found?
 
-	response, err := c.SayHello(context.Background(), &chat.Message{Body: "Hello From Client!"})
+	response, err := c.SayHello(context.Background(), &chat.MessageRequest{Body: "Hello From Client!"})
 	if err != nil {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
